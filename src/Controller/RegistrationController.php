@@ -22,9 +22,7 @@ class RegistrationController extends AbstractController
         $user = new User();
         $form = $this->createForm(RegistrationFormType::class, $user);
         $form->handleRequest($request);
-        $logger->info("HAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
         if ($form->isSubmitted() && $form->isValid()) {
-            $logger->info("SUBMITTEDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDD");
             /** @var string $plainPassword */
             $plainPassword = $form->get('plainPassword')->getData();
 
@@ -35,9 +33,9 @@ class RegistrationController extends AbstractController
             $entityManager->flush();
 
             // do anything else you need here, like send an email
-            return $security->login($user, 'form_login', 'main');
+            // return $security->login($user, 'form_login', 'main');
             
-            // return $this->redirectToRoute('app_home');
+            return $this->redirectToRoute('app_login');
         }
         $logger->info($form->getErrors(true));
 

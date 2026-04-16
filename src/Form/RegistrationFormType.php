@@ -10,7 +10,6 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints\Length;
 use Symfony\Component\Validator\Constraints\NotBlank;
 use Symfony\Component\Validator\Constraints\Email;
-use Symfony\Component\Validator\Constraints\Unique;
 
 class RegistrationFormType extends AbstractType
 {
@@ -44,10 +43,7 @@ class RegistrationFormType extends AbstractType
                         // max length allowed by Symfony for security reasons
                         max: 4096,
                     ),
-                    new Unique(
-                        message: "Nom d'utilisateur déja pris"
-                    )
-                ]
+                ] 
             ])
             ->add('plainPassword', PasswordType::class, [
                 // instead of being set onto the object directly,

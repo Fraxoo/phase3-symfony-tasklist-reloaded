@@ -1,5 +1,14 @@
 @import "tailwindcss";
 
-body {
-    background-color: skyblue;
+.auth-form-input-div {
+    display: flex;
+    flex-direction: column;
+
+}
+
+.auth-form-input {
+    background-color: #f3f3f5;
+    border: none;
+    border-radius: 0.5rem;
+    padding: 0.5rem ;
 }

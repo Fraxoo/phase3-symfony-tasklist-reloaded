@@ -3,57 +3,60 @@
 {% block title %}Home{% endblock %}
 
 {% block body %}
-<div class="flex ">
-    <header>
-        <div>
-            <a href="">Toutes les taches</a>
-            <div>
-                <h2>Dossiers</h2>
-                <div>
-                </div>
+<div class="flex h-full w-full">
+    <header class="bg-[#f9fafb] border flex md:w-80 p-6 flex-col gap-4 h-screen">
+        <a class="bg-black text-white font-medium rounded-xl py-2 px-3" href="">
+            <div class="flex items-center gap-2">
+                <i class="fa-regular fa-house"></i>
+                <p>Toutes les taches</p>
             </div>
+        </a>
+        <h2 class="font-semibold uppercase text-[#7f7f80]">Dossiers</h2>
+        <div>
+
         </div>
     </header>
 
+    <div class="w-full flex flex-col ">
+        <div class="flex items-center  justify-between p-6">
+            <div class="flex flex-col gap-2">
+                <h1 class="font-semibold text-2xl">Gestion de Taches</h1>
+                <p class="text-[#7f7f80]">Organisez votre journée efficacement</p>
+            </div>
+            <div class="flex gap-4">
+                <a href="">
+                    <div class="flex items-center gap-4">
+                        <i class="fa-solid fa-gear"></i>
+                        <p>Gerer les priorités</p>
+                    </div>
+                </a>
+                <a href="">
+                    <div class="flex items-center gap-4">
+                        <i class="fa-regular fa-folder"></i>
+                        <p>Nouveau dossier</p>
+                    </div>
+                </a>
+                <a href="">
+                    <div class="flex items-center gap-4">
+                        <i class="fa-solid fa-plus"></i>
+                        <p>Nouvelle tache</p>
+                    </div>
+                </a>
+                <a href="">
+                    <div class="flex items-center gap-4">
+                        <i class="fa-solid fa-arrow-right-from-bracket"></i>
+                        <p>Déconnexion</p>
+                    </div>
+                </a>
 
-    <div class="flex justify-between">
-        <div class="flex flex-col ">
-            <p>Gestion de Taches</p>
-            <p>Organisez votre journée efficacement</p>
+            </div>
         </div>
-        <div class="flex">
-            <a href="">
-                <div class="flex items-center gap-4">
-                    <i class="fa-solid fa-gear"></i>
-                    <p>Gerer les priorités</p>
-                </div>
-            </a>
-            <a href="">
-                <div class="flex items-center gap-4">
-                    <i class="fa-regular fa-folder"></i>
-                    <p>Nouveau dossier</p>
-                </div>
-            </a>
-            <a href="">
-                <div class="flex items-center gap-4">
-                    <i class="fa-solid fa-plus"></i>
-                    <p>Nouvelle tache</p>
-                </div>
-            </a>
-            <a href="">
-                <div class="flex items-center gap-4">
-                    <i class="fa-solid fa-arrow-right-from-bracket"></i>
-                    <p>Déconnexion</p>
-                </div>
-            </a>
+        <div>
 
         </div>
-    </div>
-    <div>
+        <div>
 
-    </div>
-    <div>
-
+        </div>
     </div>
 </div>
 

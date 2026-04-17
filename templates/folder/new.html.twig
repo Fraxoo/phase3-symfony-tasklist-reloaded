@@ -1,0 +1,26 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}New Folder
+{% endblock %}
+
+{% block body %}
+	<div class="w-screen h-screen flex justify-center items-center">
+		<div class="form w-1/3">
+			<div class="flex justify-between">
+				<div class="flex flex-col gap-4">
+					<h1 class="font-bold text-xl">Créer une dossier</h1>
+					<p class="text-[#7f7f80]">Organisez vos taches par projet</p>
+				</div>
+				<a href="{{ path('app_home')}}">
+					<i class="fa-solid fa-x"></i>
+				</a>
+			</div>
+
+			{{ include('folder/_form.html.twig') }}
+
+
+		</div>
+	</div>
+
+
+{% endblock %}

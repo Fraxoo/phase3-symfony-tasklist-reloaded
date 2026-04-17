@@ -1,22 +1,34 @@
-{% extends 'base.html.twig' %}
-
-{% block title %}Task index
-{% endblock %}
-
 {% block body %}
 
-			{% for task in tasks %}
-				<tr>
-					<td>{{ task.id }}</td>
-					<td>{{ task.title }}</td>
-					<td>{{ task.status.value }}</td>
-					<td>{{ task.isPinned ? 'Yes' : 'No' }}</td>
+{% for task in tasks %}
 
-				</tr>
-			{% else %}
-				<tr>
-					<td colspan="5">no records found</td>
-				</tr>
-			{% endfor %}
+<div class="flex p-4 border justify-between items-center rounded-xl border-[rgb(164,164,166,0.3)]">
+    <div class="flex gap-4">
+        <input type="checkbox" name="" id="">
+        <div>
+            <div class="flex gap-4">
+                <p class="font-semibold">{{ task.title}}</p>
+                <p class="px-2 py-1 rounded text-xs font-medium {{task.priority.level == 'urgent'
+                    ? 'text-red-500 bg-red-100 border border-red-200' : (task.priority.level== 'important'
+                    ? 'text-yellow-500 bg-yellow-100 border border-yellow-200' : (task.priority.level=='normal'
+                    ? 'text-blue-500 bg-blue-100 border border-blue-200' : 'text-gray-500 bg-gray-100' ))}}">{{
+                    task.priority.level}} </p>
+            </div>
+            <p class="text-[#7f7f80]">{{task.status.value}}</p>
+        </div>
+    </div>
+    <form method="post" action="{{ path('app_task_toggle_pin', {'id': task.id}) }}">
+        <button type="submit">
+            {% if task.isPinned %}
+            <i class="fa-solid fa-thumbtack-slash"></i>
+            {% else %}
+            <i class="fa-solid fa-thumbtack"></i>
+            {% endif %}
+        </button>
+    </form>
+</div>
+{% else %}
+<h2>Aucun tache trouvé</h2>
+{% endfor %}
 
 {% endblock %}

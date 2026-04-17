@@ -80,4 +80,13 @@ final class TaskController extends AbstractController
 
         return $this->redirectToRoute('app_task_index', [], Response::HTTP_SEE_OTHER);
     }
+
+    #[Route('/{id}/toggle-pin', name: 'app_task_toggle_pin', methods: ['POST'])]
+    public function togglePin(Task $task, EntityManagerInterface $entityManager): Response
+    {
+        $task->setIsPinned(!$task->isPinned());
+        $entityManager->flush();
+
+        return $this->redirectToRoute('app_home');
+    }
 }

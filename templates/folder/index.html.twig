@@ -1,0 +1,14 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Folder index
+{% endblock %}
+
+{% block body %}
+
+{% for folder in folders %}
+<p>{{folder.name}}</p>
+{{ include('folder/_delete_form.html.twig') }}
+{% endfor %}
+
+
+{% endblock %}

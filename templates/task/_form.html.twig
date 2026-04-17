@@ -1,4 +1,28 @@
-{{ form_start(form) }}
-    {{ form_widget(form) }}
-    <button class="btn">{{ button_label|default('Save') }}</button>
+{{ form_start(form , {
+attr : {'class' : "flex flex-col gap-4"}
+}) }}
+
+<div>
+    <p>Titre de la tache</p>
+    {{ form_widget(form.title ,{
+    attr : {'class' : "input"}
+    }) }}
+</div>
+
+<div>
+    <p>Priorité</p>
+    {{ form_widget(form.priority ,{
+    attr : {'class' : "input"}
+    }) }}
+</div>
+<div>
+    <p>Dossier(optionnel)</p>
+    {{ form_widget(form.folder ,{
+    attr : {'class' : "input"}
+    }) }}
+</div>
+<div class="flex justify-end items-center gap-4">
+    <a class="white-button" href="{{ path('app_home')}}">Annuler</a>
+    <button class=" black-button w-fit">Créer</button>
+</div>
 {{ form_end(form) }}

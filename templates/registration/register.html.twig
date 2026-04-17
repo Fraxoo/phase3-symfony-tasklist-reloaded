@@ -1,53 +1,53 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Register{% endblock %}
+{% block title %}Register
+{% endblock %}
 
 {% block body %}
-<div class="flex justify-center items-center bg-[#eef5ff] h-screen">
-    <div class="bg-white w-[50%] flex flex-col gap-6 p-4 rounded-2xl">
-        <h1>Gestion de Taches</h1>
+	<div class="flex justify-center items-center bg-[#eef5ff] h-screen">
+		<div class="bg-white w-[50%] flex flex-col gap-6 p-4 rounded-2xl">
+			<h1>Gestion de Taches</h1>
 
-        <div class="flex flex-col gap-2">
-            <p class="text-[#a4a4a6] font-medium">Organisez votre journée efficacement</p>
-            <div class="flex justify-around bg-[#f3f3f5] p-1 rounded-2xl text-center">
-                <a href="{{ path('app_login')}}" class="flex-1 p-1 cursor-pointer">Connexion</a>
-                <a href="{{ path('app_register')}}"
-                    class="flex-1 p-1 cursor-pointer bg-white rounded-2xl text-center">Inscription</a>
-            </div>
-            {{ form_start(registrationForm, {
+			<div class="flex flex-col gap-2">
+				<p class="text-[#a4a4a6] font-medium">Organisez votre journée efficacement</p>
+				<div class="flex justify-around bg-[#f3f3f5] p-1 rounded-2xl text-center">
+					<a href="{{ path('app_login')}}" class="flex-1 p-1 cursor-pointer">Connexion</a>
+					<a href="{{ path('app_register')}}" class="flex-1 p-1 cursor-pointer bg-white rounded-2xl text-center">Inscription</a>
+				</div>
+				{{ form_start(registrationForm, {
             attr: {'class' : "flex flex-col gap-4 data-turbo='false' "}
             }) }}
-            <div class="auth-form-input-div">
-                <p>Email</p>
-                {{ form_widget(registrationForm.email , {
+				<div class="auth-form-input-div">
+					<p>Email</p>
+					{{ form_widget(registrationForm.email , {
                 attr: {'class': "auth-form-input"},
                 placeholder: "Email"
                 }) }}
-                <p>{{ form_errors(registrationForm.email) }}</p>
+					<p>{{ form_errors(registrationForm.email) }}</p>
 
-            </div>
-            <div class="auth-form-input-div">
-                <p>Nom d'utilisateur</p>
-                {{ form_widget(registrationForm.username , {
+				</div>
+				<div class="auth-form-input-div">
+					<p>Nom d'utilisateur</p>
+					{{ form_widget(registrationForm.username , {
                 attr: {'class': "auth-form-input"}
                 })}}
-                <p>{{ form_errors(registrationForm.username) }}</p>
+					<p>{{ form_errors(registrationForm.username) }}</p>
 
-            </div>
-            <div class="auth-form-input-div">
-                <p>Mot de passe </p>
-                {{ form_widget(registrationForm.plainPassword, {
+				</div>
+				<div class="auth-form-input-div">
+					<p>Mot de passe
+					</p>
+					{{ form_widget(registrationForm.plainPassword, {
                 label: 'Password',
                 attr: {'class': "auth-form-input"}
                 }) }}
-                <p>{{ form_errors(registrationForm.plainPassword) }}</p>
-            </div>
-            <p>
-            </p>
-            <button type="submit" class="btn w-full rounded-xl font-bold bg-black text-white p-2 ">S'inscrire</button>
-            {{ form_end(registrationForm) }}
-            {{ form_errors(registrationForm) }}
-        </div>
-    </div>
-</div>
+					<p>{{ form_errors(registrationForm.plainPassword) }}</p>
+				</div>
+				<p></p>
+				<button type="submit" class="btn w-full rounded-xl font-bold bg-black text-white p-2 ">S'inscrire</button>
+				{{ form_end(registrationForm) }}
+				{{ form_errors(registrationForm) }}
+			</div>
+		</div>
+	</div>
 {% endblock %}

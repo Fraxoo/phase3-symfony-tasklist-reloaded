@@ -23,7 +23,7 @@ class TaskType extends AbstractType
             ])
             ->add('priority', EntityType::class, [
                 'class' => Priority::class,
-                'choice_label' => 'id',
+                'choice_label' => 'level',
             ])
             ->add('folder', EntityType::class, [
                 'class' => Folder::class,

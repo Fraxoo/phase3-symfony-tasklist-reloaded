@@ -6,7 +6,7 @@ namespace App\Enum;
 
 enum Status: string
 {
-    case pending = "En attente";
-    case completed = "Fini";
+    case pending = "En cours";
+    case completed = "terminée";
     case archived = "Archivé";
 }

@@ -26,7 +26,7 @@
     background-color: white;
     border-color: rgb(127, 127, 128, 0.3);
     border-width: 1px;
-    padding: 0.5rem;
+    padding: 0.5rem 1rem;
     color: black;
     font-weight: 600;
     border-radius: 0.5rem;
@@ -42,7 +42,7 @@
 .input {
     background-color: #efeeee;
     border: none;
-    padding: 0.5rem 2rem;
+    padding: 0.5rem 1rem;
     border-radius: 0.5rem;
     width: 100%;
 }
@@ -55,4 +55,8 @@
     background-color: white;
     box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
     border-radius: 1rem;
+}
+
+.error{
+    color: red;
 }

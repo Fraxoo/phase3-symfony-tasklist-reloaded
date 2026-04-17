@@ -2,24 +2,29 @@
 attr : {'class' : "flex flex-col gap-4"}
 }) }}
 
-<div>
+<div class="flex flex-col">
     <p>Titre de la tache</p>
     {{ form_widget(form.title ,{
     attr : {'class' : "input"}
     }) }}
+    <p class="error">{{ form_errors(form.title) }} </p>
+
 </div>
 
-<div>
+<div class="flex flex-col">
     <p>Priorité</p>
     {{ form_widget(form.priority ,{
     attr : {'class' : "input"}
     }) }}
+    <p class="error">{{ form_errors(form.priority) }} </p>
 </div>
-<div>
+<div class="flex flex-col">
     <p>Dossier(optionnel)</p>
     {{ form_widget(form.folder ,{
     attr : {'class' : "input"}
     }) }}
+    <p class="error">{{ form_errors(form.folder) }} </p>
+
 </div>
 <div class="flex justify-end items-center gap-4">
     <a class="white-button" href="{{ path('app_home')}}">Annuler</a>

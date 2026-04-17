@@ -18,10 +18,10 @@ class Task
     private ?string $title = null;
 
     #[ORM\Column(enumType: Status::class)]
-    private ?Status $status = null;
+    private Status $status = Status::pending;
 
     #[ORM\Column(options: ['default' => 'false'])]
-    private ?bool $isPinned = null;
+    private ?bool $isPinned = false;
 
     #[ORM\ManyToOne(inversedBy: 'tasks')]
     private ?Folder $folder = null;

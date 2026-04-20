@@ -40,4 +40,14 @@ class FolderRepository extends ServiceEntityRepository
     //            ->getOneOrNullResult()
     //        ;
     //    }
+
+    public function getAllFolderWithTaskCount(): array
+    {
+        $qb = $this->createQueryBuilder('f')
+            ->select('f', 'COUNT(t.id) AS taskCount')
+            ->leftJoin('f.tasks', 't')
+            ->groupBy('f.id');
+
+        return $qb->getQuery()->getResult();
+    }
 }

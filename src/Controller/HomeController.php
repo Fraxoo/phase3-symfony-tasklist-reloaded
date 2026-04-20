@@ -14,7 +14,7 @@ final class HomeController extends AbstractController
     #[Route('/home/{id}', name: 'app_home', defaults: ['id' => null])]
     public function index(?int $id, FolderRepository $folderRepository, TaskRepository $taskRepository): Response
     {
-        $folders = $folderRepository->findAll();
+        $folders = $folderRepository->getAllFolderWithTaskCount();
 
 
         $tasks = [];
@@ -33,6 +33,7 @@ final class HomeController extends AbstractController
         if (!$id) {
             $tasks = $taskRepository->getAllTaskWithPriority();
         }
+
 
         return $this->render('home/index.html.twig', [
             'tasks' => $tasks,

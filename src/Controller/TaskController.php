@@ -87,6 +87,9 @@ final class TaskController extends AbstractController
         $task->setIsPinned(!$task->isPinned());
         $entityManager->flush();
 
-        return $this->redirectToRoute('app_home');
+        return $this->json([
+            'success' => true ,
+            'isPinned' => $task->isPinned()
+        ]);
     }
 }

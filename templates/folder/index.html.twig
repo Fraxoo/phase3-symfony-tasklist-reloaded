@@ -6,8 +6,16 @@
 {% block body %}
 
 {% for folder in folders %}
-<p>{{folder.name}}</p>
-{{ include('folder/_delete_form.html.twig') }}
+
+<a class="flex justify-between items-center" href="{{path('app_home' , { id : folder.0.id})}}">
+    <div class="flex items-center gap-4">
+        <input type="color" value="{{folder.0.color}}" class="w-3 h-3" disabled>
+        <i class="fa-regular fa-folder"></i>
+        <p>{{folder.0.name}}</p>
+    </div>
+    <p class="text-[#7f7f80]">{{ folder.taskCount }}</p>
+</a>
+{# {{ include('folder/_delete_form.html.twig') }} #}
 {% endfor %}
 
 

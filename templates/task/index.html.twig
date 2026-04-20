@@ -17,15 +17,13 @@
             <p class="text-[#7f7f80]">{{task.status.value}}</p>
         </div>
     </div>
-    <form method="post" action="{{ path('app_task_toggle_pin', {'id': task.id}) }}">
-        <button type="submit">
+        <button  data-id="{{ task.id }}" id="pin-btn">
             {% if task.isPinned %}
             <i class="fa-solid fa-thumbtack-slash"></i>
             {% else %}
             <i class="fa-solid fa-thumbtack"></i>
             {% endif %}
         </button>
-    </form>
 </div>
 {% else %}
 <h2>Aucun tache trouvé</h2>

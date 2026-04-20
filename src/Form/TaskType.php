@@ -27,7 +27,7 @@ class TaskType extends AbstractType
             ])
             ->add('folder', EntityType::class, [
                 'class' => Folder::class,
-                'choice_label' => 'id',
+                'choice_label' => 'name',
             ])
         ;
     }

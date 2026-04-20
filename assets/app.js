@@ -10,34 +10,67 @@ import './styles/app.css';
 console.log('This log comes from assets/app.js - welcome to AssetMapper! 🎉');
 
 
-document.querySelectorAll('#pin-btn').forEach(btn => {
+document.addEventListener('click', async (e) => {
+    const btn = e.target?.closest('#pin-btn')
+    if (!btn) {
+        return
+    }
     const icon = btn.querySelector('i');
-    btn.addEventListener('click', async () => {
-        try {
-            const res = await  fetch(`/task/${btn.dataset.id}/toggle-pin`, {
-                method: 'POST'
-            })
-            console.log(res);
+    try {
+        const res = await fetch(`/task/${btn.dataset.id}/toggle-pin`, {
+            method: 'POST',
+            headers: {
+                'X-Requested-With': 'XMLHttpRequest',
+            },
+        })
+        console.log(res);
 
-            const data = await res.json();
+        const data = await res.json();
 
-            console.log(data);
+        console.log(data);
 
-            if(!res.ok) {
-                console.log("Erreur");
-                
-            }
+        if (!res.ok) {
+            console.log("Erreur");
 
-            if (data.isPinned) {
-                icon.classList.remove('fa-thumbtack');
-                icon.classList.add('fa-thumbtack-slash');
-            } else {
-                icon.classList.remove('fa-thumbtack-slash');
-                icon.classList.add('fa-thumbtack');
-            }
-        } catch (err) {
-            console.log(err);
-            
         }
-    })
+
+        if (data.isPinned) {
+            icon.classList.remove('fa-thumbtack');
+            icon.classList.add('fa-thumbtack-slash');
+        } else {
+            icon.classList.remove('fa-thumbtack-slash');
+            icon.classList.add('fa-thumbtack');
+        }
+    } catch (err) {
+        console.log(err);
+
+    }
 })
+
+
+
+// document.addEventListener('click', async (e) => {
+//     const input = e?.target?.closest('#check-task');
+//     if (!input) {
+//         return;
+//     }
+//     try {
+//         const res = await fetch(`/task/${input.dataset.id}/${input.checked ? "completed" : "pending"}/change-status`, {
+//             method: "PUT",
+//             headers: {
+//                 'X-Requested-With': 'XMLHttpRequest',
+//             },
+//         })
+
+//         const data = await res.json();
+
+//         console.log(data);
+
+//         if (!res.ok) {
+//             return;
+//         }
+//     } catch (err) {
+//         console.log(err);
+
+//     }
+// })

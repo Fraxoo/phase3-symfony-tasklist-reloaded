@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Task;
+use App\Enum\Status;
 use App\Form\TaskType;
 use App\Repository\TaskRepository;
 use Doctrine\ORM\EntityManagerInterface;
@@ -17,8 +18,13 @@ final class TaskController extends AbstractController
     #[Route(name: 'app_task_index', methods: ['GET'])]
     public function index(TaskRepository $taskRepository): Response
     {
+
+
         return $this->render('task/index.html.twig', [
-            'tasks' => $taskRepository->findAll(),
+            'tasks' => $taskRepository->findBy([
+                [null],
+                ['is_pinned' => 'DESC']
+            ]),
         ]);
     }
 
@@ -88,8 +94,43 @@ final class TaskController extends AbstractController
         $entityManager->flush();
 
         return $this->json([
-            'success' => true ,
+            'success' => true,
             'isPinned' => $task->isPinned()
+        ]);
+    }
+
+
+    #[Route('/{id}/{status}/change-status', name: 'app_task_change_status', methods: ['PUT'])]
+        public function toggleDone(Task $task, string $status, EntityManagerInterface $entityManager): Response
+    {
+        $resolvedStatus = null;
+
+        try {
+            // Allows passing the backed value too (e.g. "En cours")
+            $resolvedStatus = Status::from($status);
+        } catch (\ValueError) {
+            $resolvedStatus = match ($status) {
+                'pending' => Status::pending,
+                'completed' => Status::completed,
+                'archived' => Status::archived,
+                default => null,
+            };
+        }
+
+        if (null === $resolvedStatus) {
+            return $this->json([
+                'success' => false,
+                'error' => 'invalid_status',
+            ], Response::HTTP_BAD_REQUEST);
+        }
+
+        $task->setStatus($resolvedStatus);
+        $entityManager->flush();
+
+        return $this->json([
+            'success' => true,
+            'status' => $resolvedStatus->name,
+            'label' => $resolvedStatus->value,
         ]);
     }
 }

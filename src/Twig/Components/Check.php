@@ -23,14 +23,6 @@ final class Check
 
     public function save(EntityManagerInterface $entityManager, TaskRepository $taskRepository) :void
     {
-        $task = $taskRepository->find($this->taskId);
-        if (!$task) {
-            return;
-        }
-
-        
-        $task->setStatus($this->checked ? Status::completed : Status::pending);
-        $entityManager->flush();
 
     }
 }

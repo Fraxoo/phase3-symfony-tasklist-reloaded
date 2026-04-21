@@ -1,0 +1,23 @@
+
+
+{% block body %}
+	<h1>Priorité existante</h1>
+
+	
+			{% for prio in priorities%}
+				<div class="border rounded-xl border-[rgb(164,164,166,0.5)]  p-2">
+					{# <td>{{ prio.id }}</td> #}
+					<p>{{prio.level}}</p>
+
+						{# <a href="{{ path('app_priority_show', {'id': prio.id}) }}">show</a>
+						<a href="{{ path('app_priority_edit', {'id': prio.id}) }}">edit</a> #}
+                    {# {{ include('priority/_delete_form.html.twig')}} #}
+                </div>
+			{% else %}
+
+
+			{% endfor %}
+
+	</table>
+
+{% endblock %}

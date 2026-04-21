@@ -1,7 +1,7 @@
 {% block body %}
 
     {% for task in tasks %}
-        <twig:TaskComponent task="{{task}}"/>
+        <twig:TaskComponent :task="task"/>
     {% else %}
 
 <h2>Aucun tache trouvé</h2>

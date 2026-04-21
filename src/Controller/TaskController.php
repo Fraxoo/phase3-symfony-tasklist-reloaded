@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Task;
 use App\Enum\Status;
+use App\Form\FilterType;
 use App\Form\TaskType;
 use App\Repository\TaskRepository;
 use Doctrine\ORM\EntityManagerInterface;
@@ -50,20 +51,20 @@ final class TaskController extends AbstractController
         ]);
     }
 
-    #[Route("/validate/{id}", name: "app_john",methods:["GET","POST"])]
-    public function john(Task $task,EntityManagerInterface $em)
+    #[Route("/validate/{id}", name: "app_john", methods: ["GET", "POST"])]
+    public function john(Task $task, EntityManagerInterface $em)
     {
 
 
-        if($task->getStatus() === Status::completed){
+        if ($task->getStatus() === Status::completed) {
             $task->setStatus(Status::pending);
-        }else if($task->getStatus() === Status::pending){
+        } else if ($task->getStatus() === Status::pending) {
             $task->setStatus(Status::completed);
         }
         $em->flush();
 
         return $this->render("task/john.html.twig", [
-            'task'=>$task
+            'task' => $task
         ]);
     }
 
@@ -116,6 +117,19 @@ final class TaskController extends AbstractController
         ]);
     }
 
+
+    // public function setFilter(Request $request,Task $task, EntityManagerInterface $em) {
+
+    //     $form = $this->createForm(FilterType::class, $task);
+    //     $form->handleRequest($request);
+
+    //     if($form->isSubmitted() && $form->isValid()){
+            
+    //     }
+
+    //     return $this->render('')
+
+    // }
 
     // #[Route('/{id}/{status}/change-status', name: 'app_task_change_status', methods: ['PUT'])]
     // public function toggleDone(Task $task, string $status, EntityManagerInterface $entityManager): Response

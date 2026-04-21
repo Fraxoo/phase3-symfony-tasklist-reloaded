@@ -1,0 +1,12 @@
+{{ form_start(form , {
+attr : {'class' : "flex  gap-2"}
+}) }}
+
+{{ form_widget(form.level,{
+    attr : {'class' : "input"}
+    }) }}
+<p class="error">{{ form_errors(form.level) }}
+</p>
+
+<button class="black-button"><i class="fa-solid fa-plus"></i></button>
+{{ form_end(form) }}

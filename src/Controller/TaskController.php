@@ -50,6 +50,23 @@ final class TaskController extends AbstractController
         ]);
     }
 
+    #[Route("/validate/{id}", name: "app_john",methods:["GET","POST"])]
+    public function john(Task $task,EntityManagerInterface $em)
+    {
+
+
+        if($task->getStatus() === Status::completed){
+            $task->setStatus(Status::pending);
+        }else if($task->getStatus() === Status::pending){
+            $task->setStatus(Status::completed);
+        }
+        $em->flush();
+
+        return $this->render("task/john.html.twig", [
+            'task'=>$task
+        ]);
+    }
+
     #[Route('/{id}', name: 'app_task_show', methods: ['GET'])]
     public function show(Task $task): Response
     {
@@ -100,37 +117,37 @@ final class TaskController extends AbstractController
     }
 
 
-    #[Route('/{id}/{status}/change-status', name: 'app_task_change_status', methods: ['PUT'])]
-        public function toggleDone(Task $task, string $status, EntityManagerInterface $entityManager): Response
-    {
-        $resolvedStatus = null;
+    // #[Route('/{id}/{status}/change-status', name: 'app_task_change_status', methods: ['PUT'])]
+    // public function toggleDone(Task $task, string $status, EntityManagerInterface $entityManager): Response
+    // {
+    //     $resolvedStatus = null;
 
-        try {
-            // Allows passing the backed value too (e.g. "En cours")
-            $resolvedStatus = Status::from($status);
-        } catch (\ValueError) {
-            $resolvedStatus = match ($status) {
-                'pending' => Status::pending,
-                'completed' => Status::completed,
-                'archived' => Status::archived,
-                default => null,
-            };
-        }
+    //     try {
+    //         // Allows passing the backed value too (e.g. "En cours")
+    //         $resolvedStatus = Status::from($status);
+    //     } catch (\ValueError) {
+    //         $resolvedStatus = match ($status) {
+    //             'pending' => Status::pending,
+    //             'completed' => Status::completed,
+    //             'archived' => Status::archived,
+    //             default => null,
+    //         };
+    //     }
 
-        if (null === $resolvedStatus) {
-            return $this->json([
-                'success' => false,
-                'error' => 'invalid_status',
-            ], Response::HTTP_BAD_REQUEST);
-        }
+    //     if (null === $resolvedStatus) {
+    //         return $this->json([
+    //             'success' => false,
+    //             'error' => 'invalid_status',
+    //         ], Response::HTTP_BAD_REQUEST);
+    //     }
 
-        $task->setStatus($resolvedStatus);
-        $entityManager->flush();
+    //     $task->setStatus($resolvedStatus);
+    //     $entityManager->flush();
 
-        return $this->json([
-            'success' => true,
-            'status' => $resolvedStatus->name,
-            'label' => $resolvedStatus->value,
-        ]);
-    }
+    //     return $this->json([
+    //         'success' => true,
+    //         'status' => $resolvedStatus->name,
+    //         'label' => $resolvedStatus->value,
+    //     ]);
+    // }
 }

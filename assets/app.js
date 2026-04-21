@@ -74,3 +74,14 @@ document.addEventListener('click', async (e) => {
 
 //     }
 // })
+
+
+
+// document.addEventListener('change', (e) => {
+//     console.log(e);
+//     e.preventDefault();
+    
+//     if (e.target.matches('.auto-submit')) {
+//         e.target.closest('form').submit();
+//     }
+// });

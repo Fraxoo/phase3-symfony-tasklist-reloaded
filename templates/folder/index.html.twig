@@ -7,7 +7,7 @@
 
 {% for folder in folders %}
 
-<a class="flex justify-between items-center" href="{{path('app_home' , { id : folder.0.id})}}">
+<a class="flex justify-between items-center" href="{{ path('app_home', { id: folder.0.id, status: app.request.query.get('status'), priority: app.request.query.get('priority') }) }}">
     <div class="flex items-center gap-4">
         <input type="color" value="{{folder.0.color}}" class="w-3 h-3" disabled>
         <i class="fa-regular fa-folder"></i>

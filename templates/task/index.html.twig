@@ -1,10 +1,10 @@
 {% block body %}
 
-    {% for task in tasks %}
-        <twig:TaskComponent :task="task"/>
-    {% else %}
+	{% for task in tasks %}
+		<twig:TaskComponent :task="task"/>
+	{% else %}
 
-<h2>Aucun tache trouvé</h2>
-{% endfor %}
+		<h2>Aucun tache trouvé</h2>
+	{% endfor %}
 
 {% endblock %}

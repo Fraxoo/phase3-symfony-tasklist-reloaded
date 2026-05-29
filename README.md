@@ -1,60 +1,97 @@
-# Symfony Docker
+# Phase3 Symfony Tasklist — Instructions d'installation et d'exécution
 
-A [Docker](https://www.docker.com/)-based installer and runtime for the [Symfony](https://symfony.com) web framework,
-with [FrankenPHP](https://frankenphp.dev) and [Caddy](https://caddyserver.com/) inside!
+Ce dépôt contient une application Symfony (template de gestion de tâches). Ce document décrit les prérequis, l'installation locale et via Docker, et les commandes utiles pour lancer le projet en développement ou en production.
 
-Specially tailored for coding agents: ships with a [Dev Container](https://containers.dev/) configuration
-that lets [Claude Code](https://claude.ai/claude-code) (and other AI coding assistants) run in fully autonomous
-mode inside a sandboxed environment.
+## Prérequis
 
-![CI](https://github.com/dunglas/symfony-docker/workflows/CI/badge.svg)
+- PHP >= 8.4
+- Composer (2.x)
+- Node.js (recommandé >= 18) et `npm` / `yarn` — seulement si vous gérez des assets manuellement
+- Docker & Docker Compose (optionnel, recommandé pour un environnement isolé)
 
-## Getting Started
+Fichiers importants : `composer.json`, `compose.yaml`, `Dockerfile`, `bin/console`, `bin/phpunit`.
 
-1. If not already done, [install Docker Compose](https://docs.docker.com/compose/install/) (v2.10+)
-2. Run `docker compose build --pull --no-cache` to build fresh images
-3. Run `docker compose up --wait` to set up and start a fresh Symfony project
-4. Open `https://localhost` in your favorite web browser and [accept the auto-generated TLS certificate](https://stackoverflow.com/a/15076602/1352334)
-5. Run `docker compose down --remove-orphans` to stop the Docker containers.
+## Installation locale (développement)
 
-## Features
+1. Cloner le dépôt puis se placer dans le dossier du projet :
 
-- Production, development and CI ready
-- Just 1 service by default
-- Super-readable configuration
-- Blazing-fast performance thanks to [the worker mode of FrankenPHP](https://frankenphp.dev/docs/worker/)
-- [Installation of extra Docker Compose services](docs/extra-services.md) with Symfony Flex
-- Automatic HTTPS (in dev and prod)
-- HTTP/3 and [Early Hints](https://symfony.com/blog/new-in-symfony-6-3-early-hints) support
-- Real-time messaging thanks to a built-in [Mercure hub](https://symfony.com/doc/current/mercure.html)
-- [Vulcain](https://vulcain.rocks) support
-- Native [XDebug](docs/xdebug.md) integration
-- [Hot Reloading](https://frankenphp.dev/docs/hot-reload/)
-- [Dev Container](https://containers.dev/) support, optimized for AI coding agents
-- [AI coding agents](docs/agents.md) with sandboxing out of the box
-- Rootless, slim production image
+```bash
+git clone <repo-url> phase3-symfony-tasklist-reloaded
+cd phase3-symfony-tasklist-reloaded
+```
 
-**Enjoy!**
+2. Installer les dépendances PHP :
 
-## Docs
+```bash
+composer install
+```
 
-1. [Options available](docs/options.md)
-2. [Using Symfony Docker with an existing project](docs/existing-project.md)
-3. [Support for extra services](docs/extra-services.md)
-4. [Deploying in production](docs/production.md)
-5. [Debugging with Xdebug](docs/xdebug.md)
-6. [TLS Certificates](docs/tls.md)
-7. [Using MySQL instead of PostgreSQL](docs/mysql.md)
-8. [Using Alpine Linux instead of Debian](docs/alpine.md)
-9. [Using a Makefile](docs/makefile.md)
-10. [Updating the template](docs/updating.md)
-11. [Troubleshooting](docs/troubleshooting.md)
-12. [Using AI Coding Agents](docs/agents.md)
+3. Copier le fichier d'environnement et adapter si besoin :
 
-## License
+```bash
+cp .env .env.local
+# Modifier .env.local pour DATABASE_URL ou autres variables d'environnement
+```
 
-Symfony Docker is available under the MIT License.
+Par défaut, le `compose.yaml` configure `DATABASE_URL` pour utiliser SQLite dans `var/`.
 
-## Credits
+4. Créer la base de données et exécuter les migrations :
 
-Created by [Kévin Dunglas](https://dunglas.dev), co-maintained by [Maxime Helias](https://twitter.com/maxhelias) and sponsored by [Les-Tilleuls.coop](https://les-tilleuls.coop).
+```bash
+php bin/console doctrine:database:create --if-not-exists
+php bin/console doctrine:migrations:migrate --no-interaction
+```
+
+5. (Optionnel) Charger des fixtures de développement :
+
+```bash
+php bin/console doctrine:fixtures:load --no-interaction
+```
+
+6. Assets : selon la configuration du projet vous n'aurez peut-être pas de `package.json`. Si vous utilisez des outils JS/CSS, installez-les puis build :
+
+```bash
+# si package.json présent
+npm install
+npm run dev   # ou `npm run build` pour une version de production
+
+# sinon, assurez-vous que les assets sont installés via Symfony
+php bin/console assets:install
+```
+
+7. Lancer le serveur local (Symfony CLI recommandé) :
+
+```bash
+symfony server:start
+# ou
+php -S 127.0.0.1:8000 -t public
+```
+
+Accéder ensuite à `http://localhost:8000` (ou le port configuré).
+
+## Exécution via Docker 
+
+Le dépôt fournit un `compose.yaml`. Pour lancer les services :
+
+```bash
+ docker compose build --pull --no-cache
+ docker compose up --wait
+
+# ouvrir un shell dans le conteneur PHP
+docker compose exec php bash
+
+# puis, dans le conteneur :
+php bin/console doctrine:migrations:migrate --no-interaction
+php bin/console doctrine:fixtures:load --no-interaction
+```
+
+Le conteneur PHP monte le dossier `./var` sur l'hôte afin de conserver la base SQLite entre redémarrages (voir `compose.yaml`).
+
+## Commandes utiles
+
+- Installer dépendances PHP : `composer install`
+- Lancer migrations : `php bin/console doctrine:migrations:migrate`
+- Charger fixtures : `php bin/console doctrine:fixtures:load`
+- Lancer tests : `./bin/phpunit` ou `php ./bin/phpunit`
+- Installer assets Symfony : `php bin/console assets:install`
+
